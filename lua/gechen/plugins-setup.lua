@@ -100,6 +100,9 @@ return packer.startup(function(use)
     end,
   })
 
+  -- vim multiple cursors
+  use({ "mg979/vim-visual-multi", branch = "master" }) -- multiple cursors
+
   -- auto closing
   use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
   use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
