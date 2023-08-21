@@ -59,8 +59,8 @@ keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if ne
 
 -- bufferline
 local opts = { noremap = true, silent = true }
-keymap.set("n", "<C-p>", "<Cmd>BufferPrevious<CR>", opts)
-keymap.set("n", "<C-n>", "<Cmd>BufferNext<CR>", opts)
+keymap.set("n", "<C-[>", "<Cmd>BufferPrevious<CR>", opts)
+keymap.set("n", "<C-]>", "<Cmd>BufferNext<CR>", opts)
 
 -- Re-order to previous/next
 keymap.set("n", "<C-<>", "<Cmd>BufferMovePrevious<CR>", opts)
