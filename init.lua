@@ -1,7 +1,7 @@
 require("gechen.plugins-setup")
 require("gechen.core.options")
 require("gechen.core.keymaps")
-require("gechen.core.colorscheme")
+require("gechen.core.colorschema")
 require("gechen.plugins.comment")
 require("gechen.plugins.nvim-tree")
 require("gechen.plugins.lualine")

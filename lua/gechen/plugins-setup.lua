@@ -88,7 +88,8 @@ return packer.startup(function(use)
   use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 
   -- formatting & linting
-  use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
+  use("nvimtools/none-ls.nvim") -- configure formatters & linters (community fork of null-ls)
+  use("nvimtools/none-ls-extras.nvim") -- additional sources like eslint_d
   use("jayp0521/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
 
   -- treesitter configuration
