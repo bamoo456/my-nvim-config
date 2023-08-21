@@ -101,7 +101,20 @@ return packer.startup(function(use)
   })
 
   -- vim multiple cursors
-  use({ "mg979/vim-visual-multi", branch = "master" }) -- multiple cursors
+  -- https://github.com/mg979/vim-visual-multi/wiki/Mappings
+  use({
+    "mg979/vim-visual-multi",
+    branch = "master",
+    -- Setup the the keybinds based on the following references:
+    -- https://github.com/mg979/vim-visual-multi/issues/241
+    -- https://github.com/mg979/vim-visual-multi/issues/146
+    setup = function()
+      vim.g.VM_maps = {
+        ["Add Cursor Down"] = "<C-S-Down>",
+        ["Add Cursor Up"] = "<C-S-Up>",
+      }
+    end,
+  })
 
   -- auto closing
   use("windwp/nvim-autopairs") -- autoclose parens, brackets, quotes, etc...
