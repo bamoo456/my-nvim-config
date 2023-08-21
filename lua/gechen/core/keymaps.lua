@@ -63,8 +63,8 @@ keymap.set("n", "<C-[>", "<Cmd>BufferPrevious<CR>", opts)
 keymap.set("n", "<C-]>", "<Cmd>BufferNext<CR>", opts)
 
 -- Re-order to previous/next
-keymap.set("n", "<C-<>", "<Cmd>BufferMovePrevious<CR>", opts)
-keymap.set("n", "<C->>", "<Cmd>BufferMoveNext<CR>", opts)
+keymap.set("n", "<C-{>", "<Cmd>BufferMovePrevious<CR>", opts)
+keymap.set("n", "<C-}>", "<Cmd>BufferMoveNext<CR>", opts)
 -- Goto buffer in position...
 keymap.set("n", "<C-1>", "<Cmd>BufferGoto 1<CR>", opts)
 keymap.set("n", "<C-2>", "<Cmd>BufferGoto 2<CR>", opts)
