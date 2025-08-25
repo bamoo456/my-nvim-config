@@ -211,6 +211,19 @@ require("lazy").setup({
       require("gechen.plugins.claude-code")
     end,
   },
+
+  -- Markdown rendering
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { 
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons" 
+    },
+    ft = { "markdown" },
+    config = function()
+      require("gechen.plugins.render-markdown")
+    end,
+  },
 })
 
 

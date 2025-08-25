@@ -235,15 +235,60 @@ Provides intelligent syntax highlighting and code understanding.
 - Use continue mode to resume previous conversations
 - Files are automatically refreshed when Claude modifies them
 
-## Plugin Management (Packer)
+## Markdown Rendering (render-markdown.nvim)
+
+**Automatic Features:**
+- Enhanced markdown rendering in normal and command modes
+- Only loads when opening `.md` files for optimal performance
+- Renders automatically - no commands needed
+
+**Visual Enhancements:**
+- **Headings**: Beautiful icons (󰲡 󰲣 󰲥 󰲧 󰲩 󰲫) with colored backgrounds
+- **Code blocks**: Language-specific highlighting with borders
+- **Lists**: Styled bullets (● ○ ◆ ◇) for different nesting levels
+- **Checkboxes**: Interactive-style rendering
+  - `[ ]` → 󰄱 (unchecked)
+  - `[x]` → 󰱒 (checked)
+  - `[-]` → 󰥔 (todo/partial)
+- **Tables**: Clean borders with proper alignment
+- **Block quotes**: Visual indicator bars (▋)
+- **Links**: Icons for hyperlinks (󰌹) and images (󰥶)
+
+**Callouts Support:**
+Special GitHub/Obsidian-style callouts are rendered with icons:
+- `[!NOTE]` → 󰋽 Note
+- `[!TIP]` → 󰌶 Tip
+- `[!IMPORTANT]` → 󰅾 Important
+- `[!WARNING]` → 󰀪 Warning
+- `[!CAUTION]` → 󰳦 Caution
+- `[!TODO]` → 󰗡 Todo
+- `[!SUCCESS]` → 󰄬 Success
+- `[!BUG]` → 󰨰 Bug
+- `[!EXAMPLE]` → 󰉹 Example
+
+**Anti-conceal Feature:**
+- Raw markdown syntax appears when cursor is on that line
+- Rendered view returns when cursor moves away
+- Perfect balance between editing and reading
+
+**Usage Tips:**
+- Open any `.md` file to see enhanced rendering automatically
+- Switch to insert mode to see raw markdown for editing
+- All rendering respects your colorscheme
+- Works seamlessly with existing markdown workflows
+
+## Plugin Management (lazy.nvim)
 
 **Commands:**
-- `:PackerSync` - Install/Update/Clean plugins
-- `:PackerStatus` - Show plugin status
-- `:PackerCompile` - Compile configuration
-- `:PackerClean` - Remove unused plugins
+- `:Lazy` - Open Lazy UI
+- `:Lazy sync` - Install/Update/Clean plugins
+- `:Lazy install` - Install missing plugins
+- `:Lazy update` - Update plugins
+- `:Lazy clean` - Remove unused plugins
+- `:Lazy check` - Check for updates
+- `:Lazy log` - Show recent updates
 
-**Auto-sync:** Saving `lua/gechen/plugins-setup.lua` automatically runs PackerSync
+**Configuration:** Edit `lua/gechen/lazy.lua` to add/modify plugins
 
 ## Lualine (Status Line)
 
