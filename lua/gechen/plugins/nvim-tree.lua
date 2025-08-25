@@ -41,6 +41,21 @@ nvimtree.setup({
       },
     },
   },
+  -- custom key mappings
+  on_attach = function(bufnr)
+    local api = require("nvim-tree.api")
+    
+    -- default mappings
+    api.config.mappings.default_on_attach(bufnr)
+    
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    
+    -- custom mappings
+    vim.keymap.set('n', '+', api.tree.change_root_to_node, opts('CD (Change Directory to Node)'))
+    vim.keymap.set('n', '-', api.tree.change_root_to_parent, opts('Up (Change Directory to Parent)'))
+  end,
   -- 	git = {
   -- 		ignore = false,
   -- 	},

@@ -35,6 +35,8 @@
 - `<leader>e` - Toggle file explorer
 - **Inside NvimTree:**
   - `Enter` - Open file/folder
+  - `+` - Enter folder completely (change root to selected folder)
+  - `-` - Go back to parent folder (change root to parent)
   - `v` - Open in vertical split
   - `h` - Open in horizontal split
   - `t` - Open in new tab
