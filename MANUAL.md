@@ -199,6 +199,42 @@ Provides intelligent syntax highlighting and code understanding.
 - `:Copilot status` - Check status
 - `:Copilot panel` - Open suggestion panel
 
+## Claude Code AI Assistant
+
+**Setup Required:**
+1. Install Claude CLI: `brew install anthropic-ai/formulae/claude`
+2. Authenticate: Run `claude` and follow login prompts
+3. Alternative install: `npm install -g @anthropic-ai/claude-code`
+
+**Keybindings:**
+- `<leader>ac` - Toggle Claude Code terminal
+- `Ctrl-,` - Toggle Claude Code (normal/terminal mode)
+- `<leader>cC` - Continue last conversation
+- `<leader>cV` - Verbose mode (full turn-by-turn output)
+
+**Commands:**
+- `:ClaudeCode` - Toggle Claude Code terminal
+- `:ClaudeCodeContinue` - Resume most recent conversation
+- `:ClaudeCodeResume` - Interactive conversation picker
+- `:ClaudeCodeVerbose` - Enable verbose logging
+
+**Inside Claude Terminal:**
+- `Ctrl-h/j/k/l` - Navigate between windows
+- `Ctrl-f/b` - Scroll page up/down (press `i` after to re-enter insert)
+- `Ctrl-,` - Toggle terminal (same as opening)
+
+**Features:**
+- Auto-reloads files modified by Claude
+- Sets working directory to git root automatically
+- Detects file changes and shows notifications
+- Terminal opens in bottom split by default (configurable to float)
+
+**Tips:**
+- Claude can read, edit, and create files in your project
+- Ask Claude to explain code, fix bugs, or implement features
+- Use continue mode to resume previous conversations
+- Files are automatically refreshed when Claude modifies them
+
 ## Plugin Management (Packer)
 
 **Commands:**
@@ -252,6 +288,7 @@ Shows:
 | `<Space>ff` | Find files |
 | `<Space>fg` | Search text |
 | `<Space>e` | File explorer |
+| `<Space>ac` | Claude Code AI |
 | `gcc` | Toggle comment |
 | `gd` | Go to definition |
 | `K` | Show documentation |
