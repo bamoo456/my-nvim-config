@@ -22,6 +22,12 @@ telescope.setup({
       },
     },
   },
+  pickers = {
+    find_files = {
+      hidden = true, -- show hidden files (dotfiles)
+      no_ignore = true, -- show files ignored by .gitignore (like .env)
+    },
+  },
 })
 
 telescope.load_extension("fzf")

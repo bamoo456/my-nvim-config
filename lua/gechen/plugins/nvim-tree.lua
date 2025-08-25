@@ -27,6 +27,9 @@ nvimtree.setup({
   -- show hidden files by default
   filters = {
     dotfiles = false, -- show dotfiles (hidden files starting with .)
+    git_ignored = false, -- show git ignored files
+    git_clean = false, -- show git clean files
+    custom = {}, -- remove any custom filters
   },
   -- disable window_picker for
   -- explorer to work well with
