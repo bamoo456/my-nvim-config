@@ -21,10 +21,10 @@
 - `<leader>tp` - Go to previous tab
 
 ### Buffer Navigation (Barbar)
-- `Ctrl-[` - Previous buffer
-- `Ctrl-]` - Next buffer
-- `Ctrl-{` - Move buffer left
-- `Ctrl-}` - Move buffer right
+- `Ctrl-Shift-[` - Previous buffer
+- `Ctrl-Shift-]` - Next buffer
+- `Ctrl-Tab` - Move buffer left
+- `Ctrl-Shift-Tab` - Move buffer right
 - `Ctrl-1` to `Ctrl-9` - Go to buffer 1-9
 - `Ctrl-0` - Go to last buffer
 - `Ctrl-w` - Close current buffer
@@ -54,11 +54,16 @@
   - `?` - Show help
 
 ### Telescope (Fuzzy Finder)
-- `<leader>ff` - Find files (respects .gitignore)
+- `<leader>ff` - Find files (shows hidden files and ignores .gitignore)
 - `<leader>fg` - Live grep (search text in files)
 - `<leader>fc` - Find string under cursor
 - `<leader>fb` - Browse open buffers
 - `<leader>fh` - Browse help tags
+
+**File Filtering:**
+- Automatically ignores Java build artifacts (`.class`, `.jar`, `.war`, `target/`)
+- Shows hidden files (dotfiles) by default
+- Shows files normally ignored by .gitignore (like `.env`)
 
 **Inside Telescope:**
 - `Ctrl-j/k` - Navigate results
