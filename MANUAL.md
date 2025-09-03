@@ -242,6 +242,18 @@ Provides intelligent syntax highlighting and code understanding.
 - Use continue mode to resume previous conversations
 - Files are automatically refreshed when Claude modifies them
 
+### Yank for Claude Integration
+
+**Keybindings:**
+- `<leader>y` - Yank current line (normal mode) or selection (visual mode) for Claude
+- `<leader>Y` - Yank current line (normal mode) or selection (visual mode) with file content context
+
+**Usage:**
+- Use `<leader>y` to copy code snippets with proper formatting for Claude
+- Use `<leader>Y` to include additional file context when sharing code
+- Works in both normal mode (yanks current line) and visual mode (yanks selection)
+- Automatically formats code with file path and line numbers for better Claude understanding
+
 ## Markdown Rendering (render-markdown.nvim)
 
 **Automatic Features:**
@@ -341,6 +353,8 @@ Shows:
 | `<Space>fg` | Search text |
 | `<Space>e` | File explorer |
 | `<Space>ac` | Claude Code AI |
+| `<Space>y` | Yank for Claude |
+| `<Space>Y` | Yank with context |
 | `gcc` | Toggle comment |
 | `gd` | Go to definition |
 | `K` | Show documentation |
