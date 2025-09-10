@@ -121,20 +121,16 @@ lspconfig["jdtls"].setup({
   settings = {
     java = {
       configuration = {
-        -- Configure Java runtimes (actual paths on your system)
+        -- Configure Java runtimes (Java 8 for projects, Java 21 for tooling)
         runtimes = {
           {
             name = "JavaSE-1.8",
             path = "/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/",
-          },
-          {
-            name = "JavaSE-17",
-            path = "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/",
+            default = true, -- Use Java 8 as default for project compilation
           },
           {
             name = "JavaSE-21",
             path = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/",
-            default = true,
           },
         }
       },
