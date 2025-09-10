@@ -13,6 +13,13 @@ vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 -- configure nvim-tree
 nvimtree.setup({
+  -- automatically sync with current file
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true,
+  },
   -- change folder arrow icons
   renderer = {
     icons = {
@@ -55,6 +62,10 @@ nvimtree.setup({
     -- custom mappings
     vim.keymap.set('n', '+', api.tree.change_root_to_node, opts('CD (Change Directory to Node)'))
     vim.keymap.set('n', '-', api.tree.change_root_to_parent, opts('Up (Change Directory to Parent)'))
+    vim.keymap.set('n', 'f', api.live_filter.start, opts('Filter'))
+    vim.keymap.set('n', 'F', api.live_filter.clear, opts('Clean Filter'))
+    vim.keymap.set('n', 's', api.tree.search_node, opts('Search'))
+    vim.keymap.set('n', '<C-f>', api.tree.find_file, opts('Find File'))
   end,
   -- 	git = {
   -- 		ignore = false,

@@ -33,6 +33,7 @@
 
 ### NvimTree (File Explorer)
 - `<leader>e` - Toggle file explorer
+- `<leader>ef` - Find current file in tree and toggle
 - **Inside NvimTree:**
   - `Enter` - Open file/folder
   - `+` - Enter folder completely (change root to selected folder)
@@ -51,6 +52,10 @@
   - `gy` - Copy absolute path
   - `I` - Toggle hidden files
   - `R` - Refresh tree
+  - `f` - Start live filter (search within tree)
+  - `F` - Clear live filter
+  - `s` - Search for node by name
+  - `Ctrl-f` - Find file in tree
   - `?` - Show help
 
 ### Telescope (Fuzzy Finder)
@@ -352,6 +357,7 @@ Shows:
 | `<Space>ff` | Find files |
 | `<Space>fg` | Search text |
 | `<Space>e` | File explorer |
+| `<Space>ef` | Find current file in tree |
 | `<Space>ac` | Claude Code AI |
 | `<Space>y` | Yank for Claude |
 | `<Space>Y` | Yank with context |
