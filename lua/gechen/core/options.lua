@@ -9,6 +9,10 @@ opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
+opt.smartindent = true -- smart indentation for programming languages
+opt.cindent = true -- C-style indentation (works well for Java too)
+opt.smarttab = true -- smart tab behavior
+opt.breakindent = true -- preserve indentation when wrapping lines
 
 -- line wrapping
 opt.wrap = false -- disable line wrapping
@@ -39,3 +43,23 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 opt.iskeyword:append("-") -- consider string-string as whole word
+
+-- Language-specific indentation settings
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "java" },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+  end,
+})
+
+-- Enhanced indentation for other languages
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "html", "css", "lua" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
