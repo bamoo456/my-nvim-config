@@ -130,6 +130,14 @@ require("lazy").setup({
       require("gechen.plugins.lsp.jdtls")
     end,
   },
+  -- Debug Adapter Protocol (required for running/debugging Java tests)
+  {
+    "mfussenegger/nvim-dap",
+    lazy = false,
+    config = function()
+      require("gechen.plugins.dap")
+    end,
+  },
   {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvimtools/none-ls-extras.nvim" },
@@ -181,6 +189,32 @@ require("lazy").setup({
     end,
   },
   { "tpope/vim-fugitive", lazy = false },
+  
+  -- Advanced git history and diff viewing
+  {
+    "sindrets/diffview.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
+      { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+      { "<leader>gdl", function()
+          local line = vim.fn.line('.')
+          vim.cmd('DiffviewFileHistory % --range=' .. line .. ':' .. line)
+        end, desc = "Line history" },
+    },
+    config = function()
+      require("diffview").setup()
+    end,
+  },
+  
+  -- Git line messenger
+  {
+    "rhysd/git-messenger.vim",
+    keys = {
+      { "<leader>gm", "<Plug>(git-messenger)", desc = "Git messenger" },
+    },
+  },
 
   -- Tabs (barbar)
   {
