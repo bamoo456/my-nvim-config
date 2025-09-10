@@ -175,6 +175,18 @@
 - Refactoring support (extract variable/method/constant)
 - Test running integration
 
+#### Diagnostics & warnings (Java)
+- `<leader>d` — Show diagnostics for item under cursor (warning/error popup)
+- `<leader>D` — Show diagnostics for current line
+- `[d` / `]d` — Previous/next diagnostic
+- Open float manually: `:lua vim.diagnostic.open_float(0, { scope = "line" })`
+- List diagnostics
+  - Current buffer: `:Telescope diagnostics bufnr=0`
+  - Workspace: `:Telescope diagnostics`
+- Optional inline messages: `:lua vim.diagnostic.config({ virtual_text = true })`
+
+Tip: To restart Java LSP, prefer `:JdtUpdateConfig` (not `:LspRestart`).
+
 ### Mason (LSP Manager)
 **Commands:**
 - `:Mason` - Open Mason UI

@@ -49,6 +49,29 @@ local lombok_jar = find_lombok_jar()
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.expand("~/.cache/jdtls-workspace/") .. project_name
 
+-- Workspace auto-heal helpers
+local function jdtls_stop_wrapper_clients()
+  local clients = vim.lsp.get_clients({ name = "jdtls" })
+  for _, client in ipairs(clients or {}) do
+    local cmd0 = (client.config and client.config.cmd and client.config.cmd[1]) or ""
+    if cmd0 == "jdtls" then
+      vim.lsp.stop_client(client.id)
+    end
+  end
+end
+
+local function jdtls_clean_corrupt_caches(dir)
+  local core_dir = dir .. "/.metadata/.plugins/org.eclipse.jdt.core"
+  local candidates = { "nonChainingJarsCache", "externalFilesCache" }
+  for _, fname in ipairs(candidates) do
+    local p = core_dir .. "/" .. fname
+    local st = vim.loop.fs_stat(p)
+    if st and st.type == "file" and st.size == 0 then
+      pcall(vim.loop.fs_unlink, p)
+    end
+  end
+end
+
 -- Get the current buffer
 local bufnr = vim.api.nvim_get_current_buf()
 
@@ -270,10 +293,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "java",
   callback = function()
     -- Stop any existing LSP clients for this buffer first (avoid deprecated API)
-    local clients = vim.lsp.get_clients({ name = "jdtls" })
-    if clients and #clients > 0 then
-      vim.lsp.stop_client(clients)
-    end
+    jdtls_stop_wrapper_clients()
     
     -- Wait a moment for cleanup
     vim.defer_fn(function()
@@ -287,6 +307,8 @@ vim.api.nvim_create_autocmd("FileType", {
         local updated_config = vim.deepcopy(config)
         updated_config.cmd[#updated_config.cmd] = workspace_dir
         updated_config.root_dir = current_root
+        -- Auto-heal corrupted JDT caches (EOFException on nonChainingJarsCache)
+        jdtls_clean_corrupt_caches(workspace_dir)
         
         jdtls.start_or_attach(updated_config)
       end
