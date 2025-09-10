@@ -151,6 +151,30 @@
 - `]d` - Go to next diagnostic
 - `<leader>rs` - Restart LSP server
 
+### Java Development (nvim-jdtls)
+
+**Java-specific LSP features:**
+- `<leader>jo` - Organize imports
+- `<leader>jv` - Extract variable (normal/visual mode)
+- `<leader>jc` - Extract constant (normal/visual mode)
+- `<leader>jm` - Extract method (visual mode)
+- `<leader>jt` - Run test class
+- `<leader>jn` - Run nearest test method
+
+**Java Project Requirements:**
+- Project must have one of: `.git`, `pom.xml`, `build.gradle`, `mvnw`, `gradlew`
+- Java 8 runtime configured for project compilation
+- Java 21 runtime used for JDTLS language server
+
+**Features:**
+- Automatic project detection (Maven, Gradle)
+- Per-project workspace isolation
+- Enhanced code completion with static imports
+- Automatic import organization
+- Code generation (toString, getters/setters)
+- Refactoring support (extract variable/method/constant)
+- Test running integration
+
 ### Mason (LSP Manager)
 **Commands:**
 - `:Mason` - Open Mason UI
@@ -163,6 +187,7 @@
 - TypeScript/JavaScript: `tsserver`, `eslint_d`, `prettier`
 - HTML/CSS: `html`, `cssls`, `tailwindcss`, `emmet_ls`
 - Lua: `lua_ls`, `stylua`
+- Java: `jdtls` (via nvim-jdtls plugin)
 
 ## Autocompletion (nvim-cmp)
 
@@ -344,10 +369,16 @@ Shows:
 - Options: Edit `lua/gechen/core/options.lua`
 
 ### Troubleshooting
-1. **Plugins not loading:** Delete `plugin/packer_compiled.lua` and run `:PackerSync`
+1. **Plugins not loading:** Run `:Lazy sync` to install/update plugins
 2. **LSP not working:** Run `:LspInfo` to check status, `:Mason` to install servers
-3. **Keybinding conflicts:** Check `:map <key>` to see what's bound to a key
-4. **Visual-Multi keys not working:** Terminal may not support Ctrl-Shift combinations, consider remapping in `plugins-setup.lua`
+3. **Java JDTLS issues:**
+   - Ensure Java 21 is installed: `/Library/Java/JavaVirtualMachines/zulu-21.jdk/`
+   - Check project has `pom.xml`, `build.gradle`, or `.git` in root
+   - Run `:JdtUpdateConfig` to restart JDTLS (Java project)
+   - Check `:LspLog` for error messages
+   - Clear workspace: `rm -rf ~/.cache/jdtls-workspace/*`
+4. **Keybinding conflicts:** Check `:map <key>` to see what's bound to a key
+5. **Visual-Multi keys not working:** Terminal may not support Ctrl-Shift combinations, consider remapping in `plugins-setup.lua`
 
 ## Quick Reference Card
 
@@ -365,6 +396,8 @@ Shows:
 | `gd` | Go to definition |
 | `K` | Show documentation |
 | `<Space>ca` | Code actions |
+| `<Space>jo` | Organize imports (Java) |
+| `<Space>jv` | Extract variable (Java) |
 | `Ctrl-n` | Multi-cursor |
 | `<Space>sv` | Split vertical |
 | `Ctrl-[/]` | Switch buffers |

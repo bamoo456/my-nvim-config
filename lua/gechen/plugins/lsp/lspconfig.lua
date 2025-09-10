@@ -98,69 +98,7 @@ lspconfig["lua_ls"].setup({
   },
 })
 
--- configure Java language server (JDTLS)
-lspconfig["jdtls"].setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  -- Set Java 21 as the runtime for JDTLS itself
-  cmd = {
-    "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/bin/java",
-    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-    "-Dosgi.bundles.defaultStartLevel=4",
-    "-Declipse.product=org.eclipse.jdt.ls.core.product",
-    "-Dlog.protocol=true",
-    "-Dlog.level=ALL",
-    "-Xmx1g",
-    "--add-modules=ALL-SYSTEM",
-    "--add-opens", "java.base/java.util=ALL-UNNAMED",
-    "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-    "-jar", vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-    "-configuration", vim.fn.stdpath("data") .. "/mason/packages/jdtls/config_mac",
-    "-data", vim.fn.expand("~/.cache/jdtls-workspace"),
-  },
-  settings = {
-    java = {
-      configuration = {
-        -- Configure Java runtimes (Java 8 for projects, Java 21 for tooling)
-        runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = "/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/",
-            default = true, -- Use Java 8 as default for project compilation
-          },
-          {
-            name = "JavaSE-21",
-            path = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/",
-          },
-        }
-      },
-      -- Enable/disable specific features
-      signatureHelp = { enabled = true },
-      contentProvider = { preferred = "fernflower" },
-      completion = {
-        favoriteStaticMembers = {
-          "org.hamcrest.MatcherAssert.assertThat",
-          "org.hamcrest.Matchers.*",
-          "org.hamcrest.CoreMatchers.*",
-          "org.junit.jupiter.api.Assertions.*",
-          "java.util.Objects.requireNonNull",
-          "java.util.Objects.requireNonNullElse",
-          "org.mockito.Mockito.*"
-        }
-      },
-      sources = {
-        organizeImports = {
-          starThreshold = 9999,
-          staticStarThreshold = 9999,
-        }
-      },
-      codeGeneration = {
-        toString = {
-          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
-        }
-      }
-    }
-  },
-  -- Root directory detection for Java projects
-  root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
-})
+-- Disable default JDTLS completely (we use nvim-jdtls plugin instead)
+-- See lua/gechen/plugins/lsp/jdtls.lua for configuration
+lspconfig.jdtls.setup = function() end
+lspconfig.jdtls.autostart = false

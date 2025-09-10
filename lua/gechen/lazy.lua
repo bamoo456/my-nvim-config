@@ -123,6 +123,14 @@ require("lazy").setup({
     lazy = false,
   },
   {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("gechen.plugins.lsp.jdtls")
+    end,
+  },
+  {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvimtools/none-ls-extras.nvim" },
     config = function()
