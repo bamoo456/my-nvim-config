@@ -49,6 +49,26 @@ local lombok_jar = find_lombok_jar()
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = vim.fn.expand("~/.cache/jdtls-workspace/") .. project_name
 
+-- Java Debug/Test bundles from Mason (used to run and debug tests)
+local mason_pkgs = vim.fn.stdpath("data") .. "/mason/packages"
+local bundles = {}
+
+-- Debug adapter bundle
+local debug_plugin = vim.fn.glob(mason_pkgs .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
+if debug_plugin ~= "" then
+  table.insert(bundles, debug_plugin)
+end
+
+-- Java test bundles
+local test_glob = vim.fn.glob(mason_pkgs .. "/java-test/extension/server/*.jar", 1)
+if test_glob ~= "" then
+  for _, jar in ipairs(vim.split(test_glob, "\n")) do
+    if jar ~= "" then
+      table.insert(bundles, jar)
+    end
+  end
+end
+
 -- Workspace auto-heal helpers
 local function jdtls_stop_wrapper_clients()
   local clients = vim.lsp.get_clients({ name = "jdtls" })
@@ -102,6 +122,12 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("v", "<leader>jm", "<cmd>lua require('jdtls').extract_method(true)<CR>", opts)
   vim.keymap.set("n", "<leader>jt", "<cmd>lua require('jdtls').test_class()<CR>", opts)
   vim.keymap.set("n", "<leader>jn", "<cmd>lua require('jdtls').test_nearest_method()<CR>", opts)
+
+  -- Enable DAP integration for running and debugging tests
+  pcall(jdtls.setup_dap, { hotcodereplace = "auto" })
+  pcall(function()
+    require("jdtls.dap").setup_dap_main_class_configs()
+  end)
 end
 
 -- Capabilities for autocompletion
@@ -259,7 +285,7 @@ local config = {
 
   -- Language server initialization options
   init_options = {
-    bundles = {},
+    bundles = bundles,
     extendedClientCapabilities = {
       progressReportProvider = false,
       classFileContentsSupport = true,

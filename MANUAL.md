@@ -78,11 +78,26 @@
 - `Ctrl-x` - Open in horizontal split
 - `Ctrl-t` - Open in new tab
 
-### Git Integration (Telescope + Fugitive)
+### Git Integration (Telescope + Fugitive + Gitsigns)
 - `<leader>gc` - Browse git commits
 - `<leader>gfc` - Browse commits for current file
 - `<leader>gb` - Browse git branches
 - `<leader>gs` - Git status with diff preview
+
+**Git Blame & History (for checking previous commit changes):**
+- `<leader>gm` - **Git messenger** - Shows commit info for current line in popup (navigate with `o`/`O`)
+- `<leader>gdl` - **Line history** - Visual diff history for current line (diffview)
+- `<leader>gdh` - **File history** - Complete file history with visual diffs
+- `<leader>gdo` - **Open diffview** - Compare current changes
+
+**Gitsigns keymaps (when in git repo):**
+- `<leader>hb` - Show detailed blame for current line
+- `<leader>tb` - Toggle inline blame display for all lines
+- `<leader>hp` - Preview current hunk changes
+- `<leader>hs` - Stage current hunk
+- `<leader>hr` - Reset current hunk
+- `]c` - Jump to next git hunk
+- `[c` - Jump to previous git hunk
 
 **Gitsigns indicators:**
 - Green line on left - Added lines
@@ -161,8 +176,20 @@
 - `<leader>jt` - Run test class
 - `<leader>jn` - Run nearest test method
 
-**Java Project Requirements:**
-- Project must have one of: `.git`, `pom.xml`, `build.gradle`, `mvnw`, `gradlew`
+#### Java Test/Debug (DAP)
+
+One-time setup:
+- Install test/debug bundles: `:MasonInstall java-debug-adapter java-test`
+
+Run & Debug keys:
+- `<leader>jn` — Run nearest test (uses DAP under the hood)
+- `<leader>jt` — Run test class
+- `<F9>` — Toggle breakpoint
+- `<F5>` — Start/continue debug
+- `<F10>` — Step over  •  `<F11>` — Step into  •  `<S-F11>` — Step out
+- `<leader>db` — Toggle breakpoint  •  `<leader>dc` — Start/continue
+
+**Java Project Requirements:**- Project must have one of: `.git`, `pom.xml`, `build.gradle`, `mvnw`, `gradlew`
 - Java 8 runtime configured for project compilation
 - Java 21 runtime used for JDTLS language server
 
@@ -389,6 +416,7 @@ Shows:
    - Run `:JdtUpdateConfig` to restart JDTLS (Java project)
    - Check `:LspLog` for error messages
    - Clear workspace: `rm -rf ~/.cache/jdtls-workspace/*`
+   - Error: "`nvim-dap` must be installed to run and debug methods" → Run `:Lazy sync` and ensure `mfussenegger/nvim-dap` is installed; then restart Neovim
 4. **Keybinding conflicts:** Check `:map <key>` to see what's bound to a key
 5. **Visual-Multi keys not working:** Terminal may not support Ctrl-Shift combinations, consider remapping in `plugins-setup.lua`
 
@@ -404,6 +432,7 @@ Shows:
 | `<Space>ac` | Claude Code AI |
 | `<Space>y` | Yank for Claude |
 | `<Space>Y` | Yank with context |
+| `Ctrl-,` | Toggle Claude Code |
 | `gcc` | Toggle comment |
 | `gd` | Go to definition |
 | `K` | Show documentation |
