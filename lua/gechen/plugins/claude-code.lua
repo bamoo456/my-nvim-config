@@ -6,7 +6,7 @@ end
 
 claude.setup({
   window = {
-    split_ratio = 0.3,
+    split_ratio = 0.8,
     position = "botright",
     enter_insert = true,
     hide_numbers = true,
@@ -27,7 +27,7 @@ claude.setup({
     show_notifications = true,
   },
   git = {
-    use_git_root = true,
+    use_git_root = false,
   },
   shell = {
     separator = '&&',
