@@ -24,6 +24,10 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local sources = {}
 if formatting and formatting.prettier then table.insert(sources, formatting.prettier) end
 if formatting and formatting.stylua then table.insert(sources, formatting.stylua) end
+-- Add Java formatter only if available (install manually with :MasonInstall google-java-format)
+if formatting and formatting.google_java_format then 
+  table.insert(sources, formatting.google_java_format) 
+end
 if eslint_source then
   table.insert(sources, eslint_source.with({
     condition = function(utils)
@@ -42,6 +46,12 @@ null_ls.setup({
         group = augroup,
         buffer = bufnr,
         callback = function()
+          -- Skip auto-formatting for Java files
+          local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+          if filetype == "java" then
+            return
+          end
+          
           vim.lsp.buf.format({
             filter = function(client)
               return client.name == "null-ls" or client.name == "none-ls"
