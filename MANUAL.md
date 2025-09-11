@@ -154,10 +154,12 @@
 ## Language Server Protocol (LSP)
 
 ### LSP Keybindings (via LSPSaga)
+- `gf` - Finder (definitions + references)
+- `gI` - Incoming calls (callers of symbol)
+- `gr` - Show references (call sites)
 - `gd` - Go to definition
 - `gD` - Go to declaration
 - `gi` - Go to implementation
-- `gr` - Show references
 - `K` - Show hover documentation
 - `<leader>ca` - Code actions
 - `<leader>rn` - Rename symbol
@@ -434,6 +436,9 @@ Shows:
 | `<Space>Y` | Yank with context |
 | `Ctrl-,` | Toggle Claude Code |
 | `gcc` | Toggle comment |
+| `gf` | LSP Finder (defs + refs) |
+| `gI` | Incoming calls (callers) |
+| `gr` | References (call sites) |
 | `gd` | Go to definition |
 | `K` | Show documentation |
 | `<Space>ca` | Code actions |

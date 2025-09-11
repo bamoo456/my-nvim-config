@@ -197,6 +197,7 @@ require("lazy").setup({
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
       { "<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
+      { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
       { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
       { "<leader>gdl", function()
           local line = vim.fn.line('.')
