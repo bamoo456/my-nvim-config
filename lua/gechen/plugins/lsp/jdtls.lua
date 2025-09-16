@@ -104,7 +104,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- references/callers
   vim.keymap.set("n", "gI", "<cmd>Lspsaga incoming_calls<CR>", opts) -- callers via call hierarchy
   vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+  vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
   vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
   vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts)

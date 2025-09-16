@@ -157,7 +157,7 @@
 - `gf` - Finder (definitions + references)
 - `gI` - Incoming calls (callers of symbol)
 - `gr` - Show references (call sites)
-- `gd` - Go to definition
+- `gd` - Go to definition (open file)
 - `gD` - Go to declaration
 - `gi` - Go to implementation
 - `K` - Show hover documentation
@@ -167,6 +167,14 @@
 - `[d` - Go to previous diagnostic
 - `]d` - Go to next diagnostic
 - `<leader>rs` - Restart LSP server
+
+#### Finder (`gf`) actions
+- `Enter` - Open selection in current window
+- `s` - Open in vertical split
+- `i` - Open in horizontal split
+- `t` - Open in new tab
+- `p` - Toggle preview
+- `q` - Close finder
 
 ### Java Development (nvim-jdtls)
 
