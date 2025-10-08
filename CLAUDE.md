@@ -75,6 +75,22 @@ The setup uses Mason for LSP server management with automatic installation of:
 - TypeScript/JavaScript: tsserver, eslint_d, prettier
 - Web: html, cssls, tailwindcss, emmet_ls
 - Lua: lua_ls, stylua
+- Java: jdtls (requires additional configuration - see below)
+
+### Java LSP (JDTLS) Configuration
+
+JDTLS requires Java paths to be configured before use.
+
+**Edit `lua/gechen/java-config.lua`** with your Java installation paths:
+- `jdtls_java`: Path to Java 17+ executable for running JDTLS server
+- `runtimes`: Array of Java runtime configurations for different versions
+
+The file contains comprehensive examples for macOS, Linux, and Windows. See README.md for detailed setup instructions.
+
+**Requirements:**
+- JDTLS server requires Java 17 or higher
+- Install JDTLS via Mason: `:MasonInstall jdtls`
+- Configure at least one Java runtime in the runtimes array
 
 ## Code Style
 
@@ -110,3 +126,12 @@ If plugins aren't loading:
 1. Run `:Mason` to check installed servers
 2. Run `:LspInfo` in a file to check active LSP
 3. Check Mason logs: `:MasonLog`
+
+### JDTLS (Java LSP) Not Working
+If JDTLS isn't starting:
+1. Verify Java paths in `lua/gechen/java-config.lua` are correct for your system
+2. Check that Java 17+ is installed: `java -version`
+3. Verify JDTLS is installed via Mason: `:Mason` → search for jdtls
+4. Check Neovim messages for configuration errors: `:messages`
+5. Test Java executable path in terminal: `<path-to-java> -version`
+6. See README.md for platform-specific configuration examples

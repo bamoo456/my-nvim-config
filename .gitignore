@@ -1,2 +1,15 @@
+# Packer compiled plugin loader
 packer_compiled.lua
 
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Neovim runtime files
+*.log
+.luarc.json
+
+# JDTLS workspace (if accidentally created here)
+.jdtls-workspace/

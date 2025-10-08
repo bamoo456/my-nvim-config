@@ -3,6 +3,16 @@
 
 local jdtls = require("jdtls")
 
+-- Load user Java configuration
+local java_config_status, java_config = pcall(require, "gechen.java-config")
+if not java_config_status then
+  vim.notify(
+    "JDTLS: Java configuration not found or invalid. Please edit lua/gechen/java-config.lua with your Java paths. See README.md for setup instructions.",
+    vim.log.levels.ERROR
+  )
+  return
+end
+
 -- Determine OS for configuration
 local config_dir = "config_mac"
 if vim.fn.has("linux") == 1 then
@@ -141,7 +151,7 @@ end
 
 -- Build JDTLS command with conditional Lombok support
 local cmd = {
-  "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/bin/java",
+  java_config.jdtls_java,
   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
   "-Dosgi.bundles.defaultStartLevel=4",
   "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -183,18 +193,8 @@ local config = {
       },
       configuration = {
         updateBuildConfiguration = "interactive",
-        -- Configure Java runtimes
-        runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = "/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/",
-            default = true,
-          },
-          {
-            name = "JavaSE-21",
-            path = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/",
-          },
-        },
+        -- Configure Java runtimes from user config
+        runtimes = java_config.runtimes,
       },
       maven = {
         downloadSources = true,
