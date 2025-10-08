@@ -13,6 +13,8 @@
 - `<leader>sx` - Close current split window
 - `<leader>sm` - Toggle maximize current window (vim-maximizer)
 - `Ctrl-h/j/k/l` - Navigate between splits (vim-tmux-navigator)
+- `Ctrl-w w` - Cycle through all windows (including floats)
+- `Ctrl-w c` - Close current window
 
 ### Tab Management
 - `<leader>to` - Open new tab
@@ -154,19 +156,27 @@
 ## Language Server Protocol (LSP)
 
 ### LSP Keybindings (via LSPSaga)
-- `gf` - Finder (definitions + references)
-- `gI` - Incoming calls (callers of symbol)
-- `gr` - Show references (call sites)
-- `gd` - Go to definition (open file)
-- `gD` - Go to declaration
-- `gi` - Go to implementation
-- `K` - Show hover documentation
-- `<leader>ca` - Code actions
-- `<leader>rn` - Rename symbol
-- `<leader>d` - Show line diagnostics
-- `[d` - Go to previous diagnostic
-- `]d` - Go to next diagnostic
-- `<leader>rs` - Restart LSP server
+
+**Navigation Commands:**
+- `gf` - **Finder** (unified view) - Shows both definitions AND references in one window. Use when you want to see all related locations at once and choose where to go
+- `gd` - **Go to definition** - Jumps directly to where symbol is defined (variable declaration, function body, class definition). Use when you know you want the definition
+- `gD` - **Go to declaration** - Jumps to forward declaration (header files in C/C++, interface declarations). Use mainly in C/C++ or when you need the declaration vs definition
+- `gi` - **Go to implementation** - Jumps to concrete implementation of interface/abstract method. Use when working with interfaces/abstract classes and need the actual implementation
+- `gr` - **Show references** - Lists all places where symbol is used/called. Use when you want to see how/where something is being used across your codebase
+- `gI` - **Incoming calls** - Shows what functions/methods call the current symbol. Use when debugging call chains or understanding code flow backwards
+
+**Information & Actions:**
+- `K` - **Show hover documentation** - Displays type info, documentation, parameter details. Use when you need quick info without navigating away
+- `<leader>ca` - **Code actions** - Context-sensitive fixes/refactors (auto-import, quick fixes, generate code). Use when you see lightbulb icon or need automated fixes
+- `<leader>rn` - **Rename symbol** - Renames symbol across entire project safely. Use when refactoring variable/function/class names
+
+**Diagnostics (Errors/Warnings):**
+- `<leader>d` - **Show line diagnostics** - Displays error/warning details for current line in popup. Use when you see red/yellow squiggles and need details
+- `[d` - **Previous diagnostic** - Jump to previous error/warning in file. Use for navigating through issues
+- `]d` - **Next diagnostic** - Jump to next error/warning in file. Use for navigating through issues
+
+**Utility:**
+- `<leader>rs` - **Restart LSP server** - Restarts language server when it's misbehaving. Use when autocomplete/diagnostics stop working
 
 #### Finder (`gf`) actions
 - `Enter` - Open selection in current window
@@ -175,6 +185,31 @@
 - `t` - Open in new tab
 - `p` - Toggle preview
 - `q` - Close finder
+
+#### Closing LSP Float Panels
+**When float panels get "stuck" open after clicking elsewhere:**
+
+**Direct Close (from anywhere):**
+- `Ctrl-w c` - Close current floating window (most reliable)
+- `Ctrl-w q` - Quit current window (alternative to Ctrl-w c)
+- `:close` - Close current window via command
+- `:fclose!` - Force close all floating windows (nuclear option)
+
+**Navigate-then-Close (when you can see the float):**
+- `Ctrl-w w` → `q` - Navigate to float panel, then quit with 'q'
+- `Ctrl-w w` → `Escape` - Navigate to float panel, then escape
+- `Ctrl-w w` → `:q` - Navigate to float panel, then quit via command
+
+**LSPSaga-specific (when focused on the float):**
+- `q` - Quit LSPSaga finder/references window
+- `Escape` - Exit most LSPSaga panels
+- `Ctrl-c` - Cancel/close LSPSaga operations
+
+**Tips:**
+- **Best approach**: `Ctrl-w c` works from anywhere without navigation
+- **If that fails**: Try `Ctrl-w q` or navigate with `Ctrl-w w` first
+- **For multiple stuck windows**: Use `:fclose!` to close all at once
+- Float panels should auto-close when switching focus, but sometimes get stuck
 
 ### Java Development (nvim-jdtls)
 
@@ -455,6 +490,8 @@ Shows:
 | `Ctrl-n` | Multi-cursor |
 | `<Space>sv` | Split vertical |
 | `Ctrl-[/]` | Switch buffers |
+| `Ctrl-w w` | Cycle through windows |
+| `Ctrl-w c` / `Ctrl-w q` | Close floating window |
 
 ### Modes
 - **Normal**: Navigation and commands
