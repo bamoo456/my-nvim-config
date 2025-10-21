@@ -63,3 +63,13 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.softtabstop = 2
   end,
 })
+
+-- Fix Treesitter invalid window errors
+vim.api.nvim_create_autocmd({ "BufWinLeave", "WinClosed" }, {
+  callback = function()
+    vim.schedule(function()
+      -- Small delay to allow Treesitter callbacks to complete
+      vim.cmd("redraw")
+    end)
+  end,
+})
