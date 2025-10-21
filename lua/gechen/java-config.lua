@@ -17,7 +17,7 @@ local M = {}
 -- JDTLS Server Java Executable
 -- ========================================
 -- The Java executable used to run JDTLS itself (requires Java 17 or higher)
-M.jdtls_java = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home/bin/java"
+M.jdtls_java = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home/bin/java"
 
 -- ========================================
 -- Java Runtimes for Your Projects
@@ -31,7 +31,7 @@ M.runtimes = {
   },
   {
     name = "JavaSE-21",
-    path = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/zulu-21.jdk/Contents/Home",
+    path = "/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home",
   },
 }
 
