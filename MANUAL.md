@@ -273,6 +273,28 @@ Tip: To restart Java LSP, prefer `:JdtUpdateConfig` (not `:LspRestart`).
 - Lua: `lua_ls`, `stylua`
 - Java: `jdtls` (via nvim-jdtls plugin)
 
+### Auto-formatting Controls (null-ls)
+
+**Format Toggle Commands:**
+- `:FormatDisable` - Disable autoformat-on-save for current buffer
+- `:FormatDisable!` - Disable autoformat-on-save globally (all buffers)
+- `:FormatEnable` - Enable autoformat-on-save for current buffer
+- `:FormatEnable!` - Enable autoformat-on-save globally (all buffers)
+- `:FormatToggle` - Toggle autoformat-on-save for current buffer
+- `:FormatToggle!` - Toggle autoformat-on-save globally (all buffers)
+
+**Usage:**
+- Auto-formatting is **enabled by default** for all supported files on save
+- Java files are **automatically excluded** from auto-formatting (use `:JdtFormat` instead)
+- Use buffer-level commands when you want to disable formatting for specific files
+- Use global commands (with `!`) when you want to disable formatting for all files temporarily
+- Settings persist only for the current Neovim session
+
+**Supported formatters:**
+- JavaScript/TypeScript/JSON/HTML/CSS: `prettier`
+- Lua: `stylua`
+- Java: Manual formatting via JDTLS (not auto-formatted on save)
+
 ## Autocompletion (nvim-cmp)
 
 **In Insert Mode:**

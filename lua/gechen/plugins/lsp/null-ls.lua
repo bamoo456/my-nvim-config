@@ -46,6 +46,11 @@ null_ls.setup({
         group = augroup,
         buffer = bufnr,
         callback = function()
+          -- Skip auto-formatting if disabled globally or for this buffer
+          if vim.g.disable_autoformat or vim.b.disable_autoformat then
+            return
+          end
+
           -- Skip auto-formatting for Java files
           local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
           if filetype == "java" then
@@ -62,4 +67,47 @@ null_ls.setup({
       })
     end
   end,
+})
+
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    -- FormatDisable! disables globally
+    vim.g.disable_autoformat = true
+    print("Autoformat-on-save disabled globally")
+  else
+    -- FormatDisable disables for current buffer
+    vim.b.disable_autoformat = true
+    print("Autoformat-on-save disabled for this buffer")
+  end
+end, {
+  desc = "Disable autoformat-on-save",
+  bang = true,
+})
+
+vim.api.nvim_create_user_command("FormatEnable", function(args)
+  if args.bang then
+    -- FormatEnable! enables globally
+    vim.g.disable_autoformat = false
+    print("Autoformat-on-save enabled globally")
+  else
+    -- FormatEnable enables for current buffer
+    vim.b.disable_autoformat = false
+    print("Autoformat-on-save enabled for this buffer")
+  end
+end, {
+  desc = "Enable autoformat-on-save",
+  bang = true,
+})
+
+vim.api.nvim_create_user_command("FormatToggle", function(args)
+  if args.bang then
+    vim.g.disable_autoformat = not vim.g.disable_autoformat
+    print("Global autoformat-on-save: " .. (vim.g.disable_autoformat and "Disabled" or "Enabled"))
+  else
+    vim.b.disable_autoformat = not vim.b.disable_autoformat
+    print("Buffer autoformat-on-save: " .. (vim.b.disable_autoformat and "Disabled" or "Enabled"))
+  end
+end, {
+  desc = "Toggle autoformat-on-save",
+  bang = true,
 })

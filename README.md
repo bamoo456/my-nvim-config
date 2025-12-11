@@ -10,6 +10,7 @@ Personal Neovim configuration with LSP support, focused on Java, TypeScript, and
   - TypeScript/JavaScript
   - HTML/CSS/Tailwind
   - Lua
+  - Auto-formatting with toggleable controls (`:FormatToggle`)
 - 🎨 **UI Enhancements**: Treesitter, Lualine, Barbar, nvim-tree
 - 🔍 **Fuzzy Finding**: Telescope with fzf integration
 - ✨ **Auto-completion**: nvim-cmp with snippets
