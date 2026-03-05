@@ -1,7 +1,2 @@
--- set colorscheme to nightfly with protected call
--- in case it isn't installed
-local status, _ = pcall(vim.cmd, "colorscheme nightfly")
-if not status then
-  print("Colorscheme not found!") -- print error if colorscheme not installed
-  return
-end
+-- Colorscheme is now set via lazy.nvim plugin spec (see lua/gechen/lazy.lua)
+-- This file is kept for reference but no longer needed.

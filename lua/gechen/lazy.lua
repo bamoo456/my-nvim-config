@@ -18,6 +18,9 @@ require("lazy").setup({
     "bluz71/vim-nightfly-guicolors",
     priority = 1000,
     lazy = false,
+    config = function()
+      vim.cmd("colorscheme nightfly")
+    end,
   },
 
   -- Essentials

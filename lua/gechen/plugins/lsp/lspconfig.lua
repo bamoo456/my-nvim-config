@@ -1,8 +1,4 @@
--- import lspconfig plugin safely
-local lspconfig_status, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status then
-  return
-end
+-- LSP configuration using Neovim 0.11+ native vim.lsp.config / vim.lsp.enable API
 
 -- import cmp-nvim-lsp plugin safely
 local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -10,91 +6,76 @@ if not cmp_nvim_lsp_status then
   return
 end
 
-
 local keymap = vim.keymap -- for conciseness
 
--- enable keybinds only for when lsp server available
-local on_attach = function(client, bufnr)
-  -- keybind options
-  local opts = { noremap = true, silent = true, buffer = bufnr }
+-- Set up keybinds when LSP attaches to a buffer
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local opts = { noremap = true, silent = true, buffer = bufnr }
 
-  -- set keybinds
-  keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts) -- show definition, references
-  keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- references/callers
-  keymap.set("n", "gI", "<cmd>Lspsaga incoming_calls<CR>", opts) -- callers via call hierarchy
-  keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-  keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-  keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-  keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-  keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-  keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
-  keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-  keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-  keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-  keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-  keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
+    keymap.set("n", "gf", "<cmd>Lspsaga finder<CR>", opts)
+    keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+    keymap.set("n", "gI", "<cmd>Lspsaga incoming_calls<CR>", opts)
+    keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+    keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
+    keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
+    keymap.set("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+    keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
+    keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+    keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+    keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+    keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts)
+  end,
+})
 
-  -- typescript.nvim commands removed due to tsserver deprecation
-end
-
--- used to enable autocompletion (assign to every lsp server config)
+-- Autocompletion capabilities (shared by all servers)
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
--- Modern API (Neovim >=0.10): set diagnostic sign texts via vim.diagnostic.config
+-- Diagnostic signs
 vim.diagnostic.config({
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN]  = " ",
-      [vim.diagnostic.severity.HINT]  = "ﴞ ",
-      [vim.diagnostic.severity.INFO]  = " ",
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = "ﴞ ",
+      [vim.diagnostic.severity.INFO] = " ",
     },
   },
 })
 
--- configure html server
-lspconfig["html"].setup({
+-- Configure LSP servers using vim.lsp.config (Neovim 0.11+)
+vim.lsp.config("html", {
   capabilities = capabilities,
-  on_attach = on_attach,
 })
 
--- configure TypeScript language server (ts_ls)
-lspconfig["ts_ls"].setup({
+vim.lsp.config("ts_ls", {
   capabilities = capabilities,
-  on_attach = on_attach,
 })
 
--- configure css server
-lspconfig["cssls"].setup({
+vim.lsp.config("cssls", {
   capabilities = capabilities,
-  on_attach = on_attach,
 })
 
--- configure tailwindcss server
-lspconfig["tailwindcss"].setup({
+vim.lsp.config("tailwindcss", {
   capabilities = capabilities,
-  on_attach = on_attach,
 })
 
--- configure emmet language server
-lspconfig["emmet_ls"].setup({
+vim.lsp.config("emmet_ls", {
   capabilities = capabilities,
-  on_attach = on_attach,
   filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 })
 
--- configure lua server (with special settings)
-lspconfig["lua_ls"].setup({
+vim.lsp.config("lua_ls", {
   capabilities = capabilities,
-  on_attach = on_attach,
-  settings = { -- custom settings for lua
+  settings = {
     Lua = {
-      -- make the language server recognize "vim" global
       diagnostics = {
         globals = { "vim" },
       },
       workspace = {
-        -- make language server aware of runtime files
         library = {
           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
           [vim.fn.stdpath("config") .. "/lua"] = true,
@@ -104,7 +85,5 @@ lspconfig["lua_ls"].setup({
   },
 })
 
--- Disable default JDTLS completely (we use nvim-jdtls plugin instead)
--- See lua/gechen/plugins/lsp/jdtls.lua for configuration
-lspconfig.jdtls.setup = function() end
-lspconfig.jdtls.autostart = false
+-- Enable all configured servers (jdtls excluded — handled by nvim-jdtls plugin)
+vim.lsp.enable({ "html", "ts_ls", "cssls", "tailwindcss", "emmet_ls", "lua_ls" })
