@@ -4,6 +4,12 @@ if not status then
   return
 end
 
+-- Workaround for Neovim 0.11.x treesitter async parse bug (#31777):
+-- Async parse callback captures window ID that may become invalid before the
+-- callback fires (e.g., opening file from NvimTree). Force synchronous parsing
+-- to avoid the race condition.
+vim.g._ts_force_sync_parsing = true
+
 -- configure treesitter
 treesitter.setup({
   -- enable syntax highlighting
